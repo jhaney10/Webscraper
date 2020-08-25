@@ -1,8 +1,47 @@
-﻿@{
+﻿@model List<ProductListing>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    <div class="col-md-8 center table table-striped">
+        <p>Test Data View</p>
+        <table>
+            <thead>
+                <tr>
+                    <td>S/No</td>
+                    <td>Product Description</td>
+                    <td>Product Category</td>
+                    <td>Product Cost</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.ProductName</td>
+                        <td>@item.ProductCategory.ToString()</td>
+                        <td>@item.ProductCost.ToString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <p>Add New Product</p>
+        @using (Html.BeginForm("ScrapeData","Home"))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="page" />
+                    <input type="submit" value="Scrape Data" class="form-control btn btn-danger" />
+                </div>
+            </div>
+            
+        }
+        <a href="@Url.Action("ScarpeData","Home")" target="_blank" class="btn btn-info ">Scrape Data</a>
+
+        <form>
+        </form>
+    </div>
 </div>
